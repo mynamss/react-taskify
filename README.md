@@ -1,15 +1,25 @@
-<!-- # React + Vite -->
+# React Task App
 
-<!-- This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A simple task management app built with React to practice fundamental concepts.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh -->
+- Add, edit, and delete tasks.
+- Mark tasks as complete or incomplete.
+- Categorize tasks (e.g., personal, work).
+- Responsive design.
 
-# Built-in Hooks
-## A. State Hook
-1. ### useState
-    > - dfdsf 
-2. ### useReduce
-3. ### useContext
+## Technologies Used
+
+- **React**: For building the user interface.
+- **React Router**: For handling routing between pages.
+- **CSS**: For styling the application.
+
+## Demo
+
+> Coming soon!
+
+## Acknowledgements
+
+- React documentation: https://reactjs.org/docs
+- React Router documentation: https://reactrouter.com
