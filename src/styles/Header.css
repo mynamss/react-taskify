@@ -1,0 +1,8 @@
+.navlink {
+  display: flex;
+  flex-direction: row;
+  text-decoration: none;
+  list-style-type: none;
+  gap: 2rem;
+  margin-top: 2rem;
+}
