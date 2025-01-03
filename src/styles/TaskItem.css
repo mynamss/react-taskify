@@ -1,0 +1,33 @@
+.task-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+border-bottom: 1px thick rgba(32, 73, 117, 0.5);
+}
+
+.detail {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.2rem;
+  align-items: center;
+  width: 100%;
+}
+
+button {
+  background-color: #fb4141;
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #cb2c2c;
+}
+
+.btn-action {
+  display: flex;
+}
