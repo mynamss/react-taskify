@@ -24,13 +24,13 @@ export default function TaskList({ tasks, setTasks }) {
 
   return (
     <div>
-      <h2>Your Task</h2>
+      <h3>On Progress Task</h3>
       <ul className="task-list">
         {tasks.map((task) => (
           <TaskItem
             key={task.id}
             task={task}
-            onToggle={handleCheckedTask}
+            onChange={handleCheckedTask}
             onEdit={handleEditTask}
             onDelete={handleDeleteTask}
           />

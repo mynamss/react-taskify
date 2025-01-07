@@ -6,14 +6,18 @@ import TaskList from "../TaskList";
 import "../../styles/Content.css";
 
 import getFullDay from "../../utils/getFullDay";
+import TaskFilter from "../TaskFilter";
 
 export default function Content() {
   const [input, setInput] = useState("");
-  const [tasks, setTasks] = useImmer([{
-    id: 1,
-    name: "Learn React",
-    isDone: false,
-  }]);
+  const [tasks, setTasks] = useImmer([
+    {
+      id: 1,
+      name: "Learn React",
+      isDone: false,
+      createdAt: "2021-10-10T10:00:00.000Z",
+    },
+  ]);
 
   return (
     <>
@@ -29,6 +33,9 @@ export default function Content() {
       </div>
       <div className="content-form">
         <TaskList tasks={tasks} setTasks={setTasks} />
+      </div>
+      <div className="content-form">
+        <TaskFilter tasks={tasks} setTasks={setTasks} />
       </div>
     </>
   );

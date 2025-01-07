@@ -2,13 +2,15 @@ import { useState } from "react";
 import "../styles/TaskItem.css";
 import { IconButton, Checkbox, Divider, TextField } from "@mui/material";
 import { ClearRounded, Edit, Save } from "@mui/icons-material";
+import CenterSnackbar from "./base/SnackBar";
 
-export default function TaskItem({ task, onToggle, onDelete, onEdit }) {
+export default function TaskItem({ task, onChange, onEdit, onDelete }) {
   const [isEditing, setIsEditing] = useState(false);
   const [newInput, setNewInput] = useState(task.name);
+  const [open, setOpen] = useState(false);
 
   const updateCheckbox = (e) => {
-    onToggle(task.id, e.target.checked);
+    onChange(task.id, e.target.checked);
   };
 
   const deleteTask = () => {
@@ -23,7 +25,8 @@ export default function TaskItem({ task, onToggle, onDelete, onEdit }) {
     setNewInput(e.target.value);
   };
 
-  const handleSaveEdit = () => {
+  const handleSave = () => {
+    setOpen(true);
     onEdit(task.id, newInput);
     setIsEditing(false);
   };
@@ -39,8 +42,8 @@ export default function TaskItem({ task, onToggle, onDelete, onEdit }) {
               variant="standard"
               value={newInput}
               onChange={handleEditChange}
-              onBlur={handleSaveEdit}
-              onKeyDown={(e) => e.key === "Enter" && handleSaveEdit()}
+              onBlur={handleSave}
+              onKeyDown={(e) => e.key === "Enter" && handleSave()}
               autoFocus
               size="medium"
             />
@@ -51,7 +54,7 @@ export default function TaskItem({ task, onToggle, onDelete, onEdit }) {
 
         <div className="btn-action">
           {isEditing ? (
-            <IconButton aria-label="save" onClick={handleSaveEdit}>
+            <IconButton aria-label="save" onClick={handleSave}>
               <Save />
             </IconButton>
           ) : (
@@ -64,7 +67,7 @@ export default function TaskItem({ task, onToggle, onDelete, onEdit }) {
           </IconButton>
         </div>
       </div>
-      {/* <Divider /> */}
+      <CenterSnackbar open={open} setOpen={setOpen} message={"Task berhasil diupdate"} />
     </>
   );
 }

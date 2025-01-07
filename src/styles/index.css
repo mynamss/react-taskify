@@ -76,7 +76,7 @@ body,
   margin: 0;
   padding: 0;
   font-family: "Noto Sans", serif;
-  color: #213555;
+  /* color: #213555; */
   /* min-width: 320px; */
   /* min-height: 100vh; */
 }
