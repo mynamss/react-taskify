@@ -1,23 +1,22 @@
+// npm library
 import { useState } from "react";
 import { useImmer } from "use-immer";
 
+// components & css
 import TaskForm from "../TaskForm";
 import TaskList from "../TaskList";
+import TaskFilter from "../TaskFilter";
 import "../../styles/Content.css";
 
+// util
 import getFullDay from "../../utils/getFullDay";
-import TaskFilter from "../TaskFilter";
 
 export default function Content() {
   const [input, setInput] = useState("");
-  const [tasks, setTasks] = useImmer([
-    {
-      id: 1,
-      name: "Learn React",
-      isDone: false,
-      createdAt: "2021-10-10T10:00:00.000Z",
-    },
-  ]);
+  const [tasks, setTasks] = useImmer([]);
+
+  const onProgressTasks = tasks.filter((task) => !task.isDone);
+  const completedTasks = tasks.filter((task) => task.isDone);
 
   return (
     <>
@@ -32,10 +31,10 @@ export default function Content() {
         />
       </div>
       <div className="content-form">
-        <TaskList tasks={tasks} setTasks={setTasks} />
+        <TaskList tasks={onProgressTasks} setTasks={setTasks} />
       </div>
       <div className="content-form">
-        <TaskFilter tasks={tasks} setTasks={setTasks} />
+        <TaskFilter tasks={completedTasks} setTasks={setTasks} />
       </div>
     </>
   );

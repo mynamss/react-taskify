@@ -1,7 +1,6 @@
-import { useState } from "react";
 import "../styles/TaskForm.css";
-import TextField from "@mui/material/TextField";
-import { IconButton } from "@mui/material";
+import moment from "moment";
+import { IconButton, TextField } from "@mui/material";
 import { AddBox } from "@mui/icons-material";
 
 export default function TaskForm({ input, setInput, tasks, setTasks }) {
@@ -16,7 +15,7 @@ export default function TaskForm({ input, setInput, tasks, setTasks }) {
       return;
     }
     setTasks((draft) => {
-      draft.push({ id: tasks.length + 1, name: input, isDone: false });
+      draft.push({ id: tasks.length + 1, name: input, isDone: false, createdAt: moment().format("DD-MM-YYYY HH:mm:ss") });
     });
     setInput("");
   }

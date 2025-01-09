@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "../styles/TaskItem.css";
-import { IconButton, Checkbox, Divider, TextField } from "@mui/material";
+import { IconButton, Checkbox, TextField } from "@mui/material";
 import { ClearRounded, Edit, Save } from "@mui/icons-material";
 import CenterSnackbar from "./base/SnackBar";
 
@@ -67,7 +67,7 @@ export default function TaskItem({ task, onChange, onEdit, onDelete }) {
           </IconButton>
         </div>
       </div>
-      <CenterSnackbar open={open} setOpen={setOpen} message={"Task berhasil diupdate"} />
+      <CenterSnackbar open={open} setOpen={setOpen} message={"Task updated"} />
     </>
   );
 }
