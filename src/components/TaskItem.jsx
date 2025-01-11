@@ -4,17 +4,21 @@ import { IconButton, Checkbox, TextField } from "@mui/material";
 import { ClearRounded, Edit, Save } from "@mui/icons-material";
 import CenterSnackbar from "./base/SnackBar";
 
-export default function TaskItem({ task, onChange, onEdit, onDelete }) {
+import { useTasks } from "../context/TaskContext";
+
+export default function TaskItem({ task }) {
+  const { editTask, toggleTaskStatus, deleteTask } = useTasks();
+
   const [isEditing, setIsEditing] = useState(false);
   const [newInput, setNewInput] = useState(task.name);
   const [open, setOpen] = useState(false);
 
   const updateCheckbox = (e) => {
-    onChange(task.id, e.target.checked);
+    toggleTaskStatus(task.id, e.target.checked);
   };
 
-  const deleteTask = () => {
-    onDelete(task.id);
+  const handleDeleteTask = () => {
+    deleteTask(task.id);
   };
 
   const handleEdit = () => {
@@ -27,7 +31,7 @@ export default function TaskItem({ task, onChange, onEdit, onDelete }) {
 
   const handleSave = () => {
     setOpen(true);
-    onEdit(task.id, newInput);
+    editTask(task.id, newInput);
     setIsEditing(false);
   };
 
@@ -62,7 +66,7 @@ export default function TaskItem({ task, onChange, onEdit, onDelete }) {
               <Edit />
             </IconButton>
           )}
-          <IconButton aria-label="delete" onClick={deleteTask}>
+          <IconButton aria-label="delete" onClick={handleDeleteTask}>
             <ClearRounded />
           </IconButton>
         </div>

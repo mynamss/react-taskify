@@ -1,5 +1,5 @@
 // npm library
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useImmer } from "use-immer";
 
 // components & css
@@ -8,12 +8,12 @@ import TaskList from "../TaskList";
 import TaskFilter from "../TaskFilter";
 import "../../styles/Content.css";
 
-// util
+// context, util
+import { useTasks } from "../../context/TaskContext";
 import getFullDay from "../../utils/getFullDay";
 
 export default function Content() {
-  const [input, setInput] = useState("");
-  const [tasks, setTasks] = useImmer([]);
+  const { tasks } = useTasks();
 
   const onProgressTasks = tasks.filter((task) => !task.isDone);
   const completedTasks = tasks.filter((task) => task.isDone);
@@ -23,18 +23,13 @@ export default function Content() {
       <div className="content-form">
         <h1>Today</h1>
         <p style={{ fontSize: "0.9rem" }}>{getFullDay()}</p>
-        <TaskForm
-          input={input}
-          setInput={setInput}
-          tasks={tasks}
-          setTasks={setTasks}
-        />
+        <TaskForm tasks={tasks} />
       </div>
       <div className="content-form">
-        <TaskList tasks={onProgressTasks} setTasks={setTasks} />
+        <TaskList tasks={onProgressTasks} />
       </div>
       <div className="content-form">
-        <TaskFilter tasks={completedTasks} setTasks={setTasks} />
+        <TaskFilter tasks={completedTasks} />
       </div>
     </>
   );

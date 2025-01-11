@@ -1,31 +1,35 @@
+import { useState } from "react";
 import "../styles/TaskForm.css";
 import moment from "moment";
 import { IconButton, TextField } from "@mui/material";
 import { AddBox } from "@mui/icons-material";
 
-export default function TaskForm({ input, setInput, tasks, setTasks }) {
+import { useTasks } from "../context/TaskContext";
+
+export default function TaskForm({tasks}) {
+  const [input, setInput] = useState("");
+  const { addTask } = useTasks();
+
   function handleInputChange(e) {
     setInput(e.target.value);
   }
 
   function handleSubmit(e) {
     e.preventDefault();
-    if (!input.trim()) {
-      alert("Task cannot be empty!");
-      return;
+    if (input.trim()) {
+      addTask({
+        id: tasks.length + 1,
+        name: input,
+        isDone: false,
+        createdAt: moment().format("DD-MM-YYYY HH:mm:ss"),
+      });
+      setInput("");
     }
-    setTasks((draft) => {
-      draft.push({ id: tasks.length + 1, name: input, isDone: false, createdAt: moment().format("DD-MM-YYYY HH:mm:ss") });
-    });
-    setInput("");
   }
 
   return (
     <form className="task-form" onSubmit={handleSubmit}>
       <div className="input-list">
-        {/* <button className="btn-add" type="submit">
-          Add
-        </button> */}
         <IconButton type="submit" aria-label="add">
           <AddBox />
         </IconButton>
@@ -37,13 +41,6 @@ export default function TaskForm({ input, setInput, tasks, setTasks }) {
           onChange={handleInputChange}
           placeholder="Add your task here..."
         />
-        {/* <input
-          className="form-input"
-          type="text"
-          placeholder="Add your task here..."
-          value={input}
-          onChange={handleInputChange}
-        /> */}
       </div>
     </form>
   );

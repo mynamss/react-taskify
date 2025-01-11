@@ -1,28 +1,9 @@
 import TaskItem from "./TaskItem";
+import { useTasks } from "../context/TaskContext";
 
 import "../styles/TaskList.css";
 
-export default function TaskList({ tasks, setTasks }) {
-  const handleCheckedTask = (id, isChecked) => {
-    setTasks((draft) => {
-      const task = draft.find((task) => task.id === id);
-      task.isDone = isChecked;
-    });
-  };
-
-  const handleDeleteTask = (id) => {
-    setTasks((draft) => {
-      return draft.filter((task) => task.id !== id);
-    });
-  };
-
-  const handleEditTask = (id, newInput) => {
-    setTasks((draft) => {
-      const task = draft.find((task) => task.id === id);
-      task.name = newInput;
-    });
-  };
-
+export default function TaskList({ tasks }) {
   return (
     <div>
       <h3>On Progress Tasks</h3>
@@ -40,13 +21,7 @@ export default function TaskList({ tasks, setTasks }) {
       ) : (
         <ul className="task-list">
           {tasks.map((task) => (
-            <TaskItem
-              key={task.id}
-              task={task}
-              onChange={handleCheckedTask}
-              onEdit={handleEditTask}
-              onDelete={handleDeleteTask}
-            />
+            <TaskItem key={task.id} task={task} />
           ))}
         </ul>
       )}
