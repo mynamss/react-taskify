@@ -1,33 +1,46 @@
-// TaskContext.jsx
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useReducer } from "react";
+import { useImmerReducer } from "use-immer";
 
 const TaskContext = createContext();
 
+const taskReducer = (draft, action) => {
+  switch (action.type) {
+    case "ADD_TASK":
+      draft.push(action.payload);
+      break;
+    case "EDIT_TASK":
+      const editedTask = draft.find((item) => item.id === action.payload.id);
+      if (editedTask) editedTask.name = action.payload.newInput;
+      break;
+    case "DELETE_TASK":
+      return draft.filter((item) => item.id !== action.payload);
+    case "TOGGLE_TASK_STATUS":
+      const toggledTask = draft.find((item) => item.id === action.payload);
+      if (toggledTask) toggledTask.isDone = !toggledTask.isDone;
+      break;
+    default:
+      throw new Error(`Unknown action type: ${action.type}`);
+  }
+};
+
 export const TaskProvider = ({ children }) => {
-  const [tasks, setTasks] = useState([]);
+  const initState = [];
+  const [tasks, dispatch] = useImmerReducer(taskReducer, initState);
 
   const addTask = (task) => {
-    setTasks((prevTasks) => [...prevTasks, task]);
+    dispatch({ type: "ADD_TASK", payload: task });
   };
 
   const deleteTask = (id) => {
-    setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
+    dispatch({ type: "DELETE_TASK", payload: id });
   };
 
   const editTask = (id, newInput) => {
-    setTasks((prevTasks) =>
-      prevTasks.map((task) =>
-        task.id === id ? { ...task, name: newInput } : task
-      )
-    );
+    dispatch({ type: "EDIT_TASK", payload: { id, newInput } });
   };
 
   const toggleTaskStatus = (id) => {
-    setTasks((prevTasks) =>
-      prevTasks.map((task) =>
-        task.id === id ? { ...task, isDone: !task.isDone } : task
-      )
-    );
+    dispatch({ type: "TOGGLE_TASK_STATUS", payload: id });
   };
 
   return (
