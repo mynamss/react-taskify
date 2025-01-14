@@ -1,11 +1,23 @@
+.navbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 2rem;
+  margin-bottom: 5rem;
+}
+
 .navlink {
   display: flex;
   flex-direction: row;
+  align-items: center;
   text-decoration: none;
   list-style-type: none;
   gap: 2rem;
-  margin-top: 2rem;
-  margin-bottom: 5rem;
   padding: 0;
   justify-content: center;
+}
+
+.header-btn {
+  display: flex;
 }

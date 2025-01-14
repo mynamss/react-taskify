@@ -2,7 +2,7 @@ import { Snackbar, IconButton } from "@mui/material";
 import { Close as CloseIcon } from "@mui/icons-material";
 
 export default function CenterSnackbar({
-  open = false,
+  open,
   setOpen,
   message = "Berhasil",
 }) {

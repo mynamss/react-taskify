@@ -1,6 +1,6 @@
 import React from "react";
 import "../../styles/Auth.css";
-export default function AuthLayout({ children, image, imageSideStyles }) {
+export default function AuthLayout({ children, image }) {
   return (
     <div className="container">
       <div className="login-container">
@@ -9,7 +9,7 @@ export default function AuthLayout({ children, image, imageSideStyles }) {
           className="image-side"
           style={{
             backgroundImage: `url(${image})`,
-            borderRadius: imageSideStyles,
+            borderRadius: "1rem 0 0 1rem",
           }}
         />
         {/* content */}

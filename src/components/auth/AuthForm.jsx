@@ -1,4 +1,4 @@
-import React from "react";
+import { Link } from "react-router-dom";
 import {
   FormControl,
   InputLabel,
@@ -9,7 +9,7 @@ import {
   InputAdornment,
 } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { Link } from "react-router-dom";
+
 export default function AuthForm({
   title,
   description,
@@ -23,6 +23,8 @@ export default function AuthForm({
   showPassword,
   setShowPassword,
   handleSubmit,
+  isOpen = false,
+  message,
 }) {
   return (
     <div>

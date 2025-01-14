@@ -16,7 +16,7 @@ export default function Login() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (email === "user@example.com" && password === "password123") {
+    if (email === "user@example.com" && password === "123") {
       login({ email });
       navigate("/");
     } else {
@@ -25,7 +25,7 @@ export default function Login() {
   };
 
   return (
-    <AuthLayout image={IMAGE_COVER} imageSideStyles={"1rem 0 0 1rem"}>
+    <AuthLayout image={IMAGE_COVER}>
       <AuthForm
         title="Login to Taskify."
         description="Welcome Back! Let's login and set your tasks."
