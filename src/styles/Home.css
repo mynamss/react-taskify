@@ -1,0 +1,13 @@
+.content-container {
+  display: flex;
+  /* flex: 1; */
+  flex-direction: column;
+  margin: 0 20rem;
+}
+
+.content-form {
+  padding: 1.5rem 1rem;
+  border-radius: 0.7rem;
+  margin-bottom: 1rem;
+  background-color: #f5f5f5;
+}

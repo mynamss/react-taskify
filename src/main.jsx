@@ -8,9 +8,7 @@ import { StyledEngineProvider } from "@mui/material/styles";
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <StyledEngineProvider injectFirst>
-      <div className="container">
-        <App />
-      </div>
+      <App />
     </StyledEngineProvider>
   </StrictMode>
 );
