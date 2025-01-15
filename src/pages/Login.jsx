@@ -26,7 +26,7 @@ export default function Login() {
 
   return (
     <AuthLayout image={IMAGE_COVER}>
-      <AuthForm
+      {/* <AuthForm
         title="Login to Taskify."
         description="Welcome Back! Let's login and set your tasks."
         isRegister={false}
@@ -37,7 +37,7 @@ export default function Login() {
         showPassword={showPassword}
         setShowPassword={setShowPassword}
         handleSubmit={handleSubmit}
-      />
+      /> */}
     </AuthLayout>
   );
 }

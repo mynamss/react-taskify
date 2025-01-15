@@ -23,9 +23,11 @@ export default function AuthForm({
   showPassword,
   setShowPassword,
   handleSubmit,
-  isOpen = false,
-  message,
+  isLoading = false,
+  setError,
+  error,
 }) {
+  console.log(error);
   return (
     <div>
       <div className="content-head">
@@ -40,7 +42,15 @@ export default function AuthForm({
             variant="standard"
             type="text"
             value={fullname}
-            onChange={(e) => setFullname(e.target.value)}
+            error={error.fullname.status}
+            helperText={error.fullname.status ? error.fullname.message : ""}
+            onChange={(e) => {
+              setError((draft) => {
+                draft.fullname.status = false;
+                draft.fullname.message = "";
+              });
+              setFullname(e.target.value);
+            }}
           />
         )}
         <TextField
@@ -49,53 +59,72 @@ export default function AuthForm({
           variant="standard"
           type="email"
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          error={error.email.status}
+          helperText={error.email.status ? error.email.message : ""}
+          onChange={(e) => {
+            setError((draft) => {
+              draft.email.status = false;
+              draft.email.message = "";
+            });
+            setEmail(e.target.value);
+          }}
         />
         <FormControl variant="standard">
-          <InputLabel htmlFor="standard-adornment-password">
-            Password
-          </InputLabel>
-          <Input
+          <TextField
+            variant="standard"
             id="standard-adornment-password"
+            label="Password"
             type={showPassword ? "text" : "password"}
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label={
-                    showPassword ? "hide the password" : "display the password"
-                  }
-                  onClick={() => setShowPassword((show) => !show)}
-                  onMouseDown={(e) => e.preventDefault()}
-                  onMouseUp={(e) => e.preventDefault()}
-                >
-                  {showPassword ? <VisibilityOff /> : <Visibility />}
-                </IconButton>
-              </InputAdornment>
-            }
+            onChange={(e) => {
+              setError((draft) => {
+                draft.password.status = false;
+                draft.password.message = "";
+              });
+              setPassword(e.target.value);
+            }}
+            error={error.password.status}
+            helperText={error.password.status ? error.password.message : ""}
+            slotProps={{
+              input: {
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label={
+                        showPassword
+                          ? "hide the password"
+                          : "display the password"
+                      }
+                      onClick={() => setShowPassword((show) => !show)}
+                      onMouseDown={(e) => e.preventDefault()}
+                      onMouseUp={(e) => e.preventDefault()}
+                    >
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              },
+            }}
           />
         </FormControl>
-        <div className="action-btn">
-          <Button
-            className="login-btn"
-            variant="contained"
-            color="primary"
-            disabled={email.trim() === "" || password.trim() === ""}
-            type="submit"
-            fullWidth={true}
-          >
-            {isRegister ? "Register" : "Login"}
-          </Button>
-          <p>
-            {isRegister
-              ? "Already have an account? "
-              : "Don't have an account? "}
-            <Link underline="none" to={isRegister ? "/login" : "/register"}>
-              {isRegister ? "Login" : "Register"}
-            </Link>
-          </p>
-        </div>
+        <Button
+          className="submit-btn"
+          variant="contained"
+          color="primary"
+          // disabled={email.trim() === "" || password.trim() === ""}
+          type="submit"
+          fullWidth={true}
+          loading={isLoading}
+          loadingPosition="start"
+        >
+          {isRegister ? "Register" : "Login"}
+        </Button>
+        <p style={{ textAlign: "center" }}>
+          {isRegister ? "Already have an account? " : "Don't have an account? "}
+          <Link underline="none" to={isRegister ? "/login" : "/register"}>
+            {isRegister ? "Login" : "Register"}
+          </Link>
+        </p>
       </form>
     </div>
   );

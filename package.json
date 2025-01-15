@@ -12,8 +12,8 @@
   "dependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
-    "@mui/icons-material": "^6.3.0",
-    "@mui/material": "^6.3.0",
+    "@mui/icons-material": "^6.4.0",
+    "@mui/material": "^6.4.0",
     "@supabase/supabase-js": "^2.47.13",
     "bcryptjs": "^2.4.3",
     "immer": "^10.1.1",
