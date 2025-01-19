@@ -5,6 +5,7 @@ import AuthForm from "../components/auth/AuthForm";
 import IMAGE_COVER from "../assets/images/v-register-bg.jpg";
 import { supabase } from "../configs/db/supabase";
 import CenterSnackbar from "../components/base/SnackBar";
+import { authValidation } from "../utils/authValidation";
 
 export default function Register() {
   const [fullname, setFullname] = useState("");
@@ -28,34 +29,20 @@ export default function Register() {
       message: "",
     },
   });
-  console.log(error);
-
-  // input validation
-  const validateInputs = () => {
-    if (!fullname || !email || !password) {
-      setError((draft) => {
-        draft.fullname.status = true;
-        draft.email.status = true;
-        draft.password.status = true;
-        draft.fullname.message = fullname ? "" : "required.";
-        draft.email.message = email ? "" : "required.";
-        draft.password.message = password ? "" : "required.";
-      });
-      return false;
-    }
-    if (password.length < 6) {
-      setMessage("Password must be at least 6 characters long.");
-      setOpen(true);
-      return false;
-    }
-    return true;
-  };
 
   // submit button
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("FIRST", error);
 
-    if (!validateInputs()) return;
+    // input validation
+    const isValid = authValidation("register", setError, {
+      fullname,
+      email,
+      password,
+    });
+
+    if (!isValid) return;
     setLoading(true);
 
     try {

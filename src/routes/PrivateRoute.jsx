@@ -1,8 +1,26 @@
-import { Navigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
+import { useEffect, useState } from "react";
+import { Navigate, Outlet } from "react-router-dom";
+import { supabase } from "../configs/db/supabase";
+// import { isAuthenticated } from "../utils/authValidation";
 
-export default function PrivateRoute({ children }) {
-  const { user } = useAuth();
+export default function PrivateRoute() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [loading, setLoading] = useState(true);
 
-  return user ? children : <Navigate to="/login" />;
+  useEffect(() => {
+    const checkSession = async () => {
+      const { data } = await supabase.auth.getSession();
+
+      setIsAuthenticated(!!data.session);
+      setLoading(false);
+    };
+    checkSession();
+  }, []);
+
+  if (loading) {
+    // Tampilkan indikator loading saat memeriksa sesi
+    return <div>Loading...</div>;
+  }
+
+  return isAuthenticated ? <Outlet /> : <Navigate to={"/login"} />;
 }
