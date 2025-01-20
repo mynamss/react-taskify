@@ -1,15 +1,19 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
-import AuthLayout from "../components/auth/AuthLayout";
-import AuthForm from "../components/auth/AuthForm";
-import IMAGE_COVER from "../assets/images/v-login-bg.jpg";
 import { useImmer } from "use-immer";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../hooks/useAuth";
+
 import { supabase } from "../configs/db/supabase";
-import CenterSnackbar from "../components/base/SnackBar";
 import { authValidation } from "../utils/authValidation";
 
+import AuthLayout from "../components/auth/AuthLayout";
+import AuthForm from "../components/auth/AuthForm";
+import CenterSnackbar from "../components/base/SnackBar";
+
+import IMAGE_COVER from "../assets/images/v-login-bg.jpg";
+
 export default function Login() {
+  const { login } = useAuth();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -41,15 +45,9 @@ export default function Login() {
     setLoading(true);
 
     try {
-      const { data: user, error: errorAuth } =
-        await supabase.auth.signInWithPassword({
-          email,
-          password,
-        });
+      const { userData, error } = await login(email, password);
 
-      if (errorAuth) {
-        throw errorAuth;
-      }
+      if (error) throw error;
 
       setMessage("Login successful. Redirecting...");
       setLoading(false);

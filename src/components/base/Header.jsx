@@ -1,7 +1,6 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../../styles/Header.css";
-import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../context/AuthContext";
+import { useAuth } from "../../hooks/useAuth";
 import { supabase } from "../../configs/db/supabase";
 
 import { IconButton } from "@mui/material";
@@ -10,21 +9,24 @@ import { WebStories, AccountCircle, Logout } from "@mui/icons-material";
 export default function Header() {
   const navigate = useNavigate();
 
+  const { logout, user } = useAuth();
+
   const navList = [
     { title: "Home", url: "/" },
     { title: "About", url: "/about" },
     { title: "Contact", url: "/contact" },
   ];
 
+  console.log("user:", user);
+
   const handleLogout = async () => {
     try {
-      // Logout dari Supabase
-      await supabase.auth.signOut();
+      await logout();
 
       // Hapus session dari localStorage
-      localStorage.removeItem("supabase_session");
+      // localStorage.removeItem("supabase_session");
 
-      // Redirect ke halaman login
+      // Redirect
       navigate("/login");
     } catch (e) {
       console.error("Error during logout:", e.message);
