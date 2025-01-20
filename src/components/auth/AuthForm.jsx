@@ -1,8 +1,6 @@
 import { Link } from "react-router-dom";
 import {
   FormControl,
-  InputLabel,
-  Input,
   TextField,
   Button,
   IconButton,
@@ -27,7 +25,6 @@ export default function AuthForm({
   setError,
   error,
 }) {
-  console.log(error);
   return (
     <div>
       <div className="content-head">
@@ -43,7 +40,11 @@ export default function AuthForm({
             type="text"
             value={fullname}
             error={error.fullname.status}
-            helperText={error.fullname.status ? error.fullname.message : ""}
+            helperText={
+              error.fullname.status
+                ? error.fullname.message
+                : ""
+            }
             onChange={(e) => {
               setError((draft) => {
                 draft.fullname.status = false;
@@ -111,7 +112,6 @@ export default function AuthForm({
           className="submit-btn"
           variant="contained"
           color="primary"
-          // disabled={email.trim() === "" || password.trim() === ""}
           type="submit"
           fullWidth={true}
           loading={isLoading}

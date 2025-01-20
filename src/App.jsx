@@ -1,21 +1,20 @@
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  useLocation,
-} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import ThemeConfigProvider from "./configs/ThemeConfig";
-// import "./styles/App.css";
 
-import Header from "./components/base/Header";
+// pages
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
-import Login from "./pages/Login";
 import Register from "./pages/Register";
-import Footer from "./components/base/Footer";
+import Login from "./pages/Login";
+import Profile from "./pages/Profile";
+// context
 import { TaskProvider } from "./context/TaskContext";
 import { AuthProvider } from "./context/AuthContext";
+// components
+// import Header from "./components/base/Header";
+import Footer from "./components/base/Footer";
+// routes
 import PrivateRoute from "./routes/PrivateRoute";
 import PublicRoute from "./routes/PublicRoute";
 
@@ -27,15 +26,17 @@ export default function App() {
         <AuthProvider>
           <TaskProvider>
             <Routes>
-              <Route
-                path="/"
-                element={
-                  <PrivateRoute>
-                    <Home />
-                  </PrivateRoute>
-                }
-              />
-              <Route
+              <Route element={<PublicRoute />}>
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
+              </Route>
+              <Route element={<PrivateRoute />}>
+                <Route path="/" element={<Home />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/contact" element={<Contact />} />
+                <Route path="/profile" element={<Profile />} />
+              </Route>
+              {/* <Route
                 path="/about"
                 element={
                   <PrivateRoute>
@@ -50,8 +51,8 @@ export default function App() {
                     <Contact />
                   </PrivateRoute>
                 }
-              />
-              <Route
+              /> */}
+              {/* <Route
                 path="/login"
                 element={
                   <PublicRoute>
@@ -66,7 +67,15 @@ export default function App() {
                     <Register />
                   </PublicRoute>
                 }
-              />
+              /> */}
+              {/* <Route
+                path="/profile/me"
+                element={
+                  <PublicRoute>
+                    <Register />
+                  </PublicRoute>
+                }
+              /> */}
             </Routes>
           </TaskProvider>
           <Footer />

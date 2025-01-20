@@ -1,8 +1,13 @@
-import { Navigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
+import { Navigate, Outlet } from "react-router-dom";
+import { useAuth } from "../hooks/useAuth";
 
-export default function PrivateRoute({ children }) {
-  const { user } = useAuth();
+export default function PrivateRoute() {
+  const { isAuthenticated, isLoading } = useAuth();
 
-  return user ? children : <Navigate to="/login" />;
+  // if (isLoading) {
+  //   // Tampilkan indikator loading saat memeriksa sesi
+  //   return <div>Loading...</div>;
+  // }
+
+  return isAuthenticated ? <Outlet /> : <Navigate to={"/login"} />;
 }
